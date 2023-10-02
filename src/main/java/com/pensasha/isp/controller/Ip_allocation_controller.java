@@ -18,7 +18,6 @@ import com.pensasha.isp.model.Status;
 import com.pensasha.isp.service.Ip_allocation_service;
 
 import java.util.*;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api")
@@ -103,6 +102,13 @@ public class Ip_allocation_controller {
 
     }
 
+    @GetMapping("/reserved")
+    public ResponseEntity<Object> listReservedIpAddresses() {
+        ArrayList<Ip_address> reservedIpAddress = ip_allocation_service.gettingIpAddressByStatus(Status.RESERVED);
+
+        return ResponseEntity.status(HttpStatus.OK).body(reservedIpAddress);
+    }
+
     // Filter available IPs providing start and end ip
     @GetMapping("/available/filter")
     public List<String> filterAvailableIp(@RequestParam("start") String start,
@@ -110,6 +116,7 @@ public class Ip_allocation_controller {
 
         List<String> ipAddresses = new ArrayList<>();
         List<Ip_address> ip_addresses = ip_allocation_service.gettingIpAddressByStatus(Status.AVAILABLE);
+
         for (Ip_address ip : ip_addresses) {
             ipAddresses.add(ip.getIp());
         }
@@ -189,12 +196,21 @@ public class Ip_allocation_controller {
                 ips.add(ip.getIp());
             }
 
-            int startIndex = ips.indexOf(start);
-            int endIndex = ips.indexOf(end);
+            if (ips.contains(start) && ips.contains(end)) {
 
-            filteredIpAddresses = filter(startIndex, endIndex, ips);
-            
-            sortIps(filteredIpAddresses);
+                sortIps(ips);
+
+                int startIndex = ips.indexOf(start);
+                int endIndex = ips.indexOf(end);
+
+                filteredIpAddresses = filter(startIndex, endIndex, ips);
+                for (String ip : ips) {
+                    if (!ipAddresses.contains(ip)) {
+                        filteredIpAddresses.remove(ip);
+                    }
+                }
+
+            }
 
         }
 
