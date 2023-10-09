@@ -1,0 +1,12 @@
+com\pensasha\isp\CommandLineAppStartipRunner.class
+com\pensasha\isp\IspApplication.class
+com\pensasha\isp\controller\Ip_allocation_controller.class
+com\pensasha\isp\model\Customer.class
+com\pensasha\isp\repository\Ip_allocation_repository.class
+com\pensasha\isp\model\Ip_address$Ip_addressBuilder.class
+com\pensasha\isp\model\Status.class
+com\pensasha\isp\config\ApiKeyAuthFilter.class
+com\pensasha\isp\model\Ip_address.class
+com\pensasha\isp\config\SecurityConfig.class
+com\pensasha\isp\model\Customer$CustomerBuilder.class
+com\pensasha\isp\service\Ip_allocation_service.class

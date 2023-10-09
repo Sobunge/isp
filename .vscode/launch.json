@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-IspApplication<isp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pensasha.isp.IspApplication",
+            "projectName": "isp",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

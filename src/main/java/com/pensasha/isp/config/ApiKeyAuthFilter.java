@@ -23,18 +23,18 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-     FilterChain filterChain) throws IOException, ServletException {
+            FilterChain filterChain) throws IOException, ServletException {
 
         // Get the API key and secret from request headers
         String requestApiKey = request.getHeader("X-API-KEY");
         String requestApiSecret = request.getHeader("X-API-SECRET");
 
-        //Validate the key and secret
-        if(apiKey.equals(requestApiKey) && apiSecret.equals(requestApiSecret)){
-            //Continue processing the request
+        // Validate the key and secret
+        if (apiKey.equals(requestApiKey) && apiSecret.equals(requestApiSecret)) {
+            // Continue processing the request
             filterChain.doFilter(request, response);
         } else {
-            //Reject the request and send an unauthorized error
+            // Reject the request and send an unauthorized error
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write("Unauthorized");
         }
